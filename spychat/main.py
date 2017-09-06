@@ -1,28 +1,43 @@
-from spy_details  import spy_salutation,spy_name,spy_age,spy_rating,spy_is_online  #to import default details
-from start_chat import start_chat
-#Starting point of application
-print "Let's get Started"
-question =  "Do you want to continue as" + spy_salutation + " " + spy_name + "(Y/N)"
-existing =  raw_input(question)
-if(existing.Upper == "Y"):
-    #User wants to continue as default user
+from spy_details import spy
+from start_chat import  start_chat
+import re
+print "Let's get started!"
+question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (Y/N): "
+existing = raw_input(question)
 
-    spy_name = spy_salutation + " " + spy_name
+if (existing.upper() == "Y") :
 
-    # start chat application
-    start_chat(spy_name,spy_age,spy_rating)
+    spy.name = spy.salutation + " " + spy.name
 
-elif(existing.Upper=="N") :
-    # User wants to continue as new user
-    name = raw_input("What is your name?")
-    print ("welcome " +name)
-    if(len(name)>0): #check is the input is null or not
-        spy_salutation = raw_input("What should I call you")
-        spy_name = raw_input("What is your name")
-        spy_age = raw_input("What is your age")
-        spy_age = int(spy_age)
-        spy_rating  = raw_input("Provide your rating")
-        spy_rating = float(spy_rating)
-        spy_is_online = True
-        print("Hello" +spy_salutation)
+    #Starting_chat
+    start_chat(spy.name, spy.age, spy.rating, spy.is_online)
+elif (existing.upper() == "N"):
+    spy.name = raw_input("Provide your name here :")
+    pattern1='^[a-zA-Z]+$'
+    if(re.match(pattern1,spy.name)!=None):
+        if len(spy.name) > 0:
+            spy.salutation = raw_input("What should we call you ? : ")
 
+            while True:
+                try:
+                    spy.age = int(raw_input("Enter your age. ?"))
+                    break
+                except ValueError:
+                    print "Invalid age. Try again."
+
+        spy.name = spy.salutation + " " + spy.name
+
+        while True:
+            try:
+                spy.rating = float(
+                    raw_input("What is your spy rating?"))
+                break
+            except ValueError:
+                print "Invalid rating. Try again."
+        spy.is_online = True
+
+        start_chat(spy.name, spy.age, spy.rating, spy.is_online)
+    else:
+        print "Invalid name. Try again."
+else:
+    print "Wrong choice. Try again."
