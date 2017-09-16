@@ -1,4 +1,5 @@
+# default status
 current_status_message = None
 
-STATUS_MESSAGES = ['My name is Bond, James Bond', 'Shaken, not stirred.', 'Keeping the British end up, Sir']
-
+# list of default status
+STATUS_MESSAGES = ['My name is Trisha.','Welcome to the world of spy.']
